@@ -1,7 +1,9 @@
 ##########################################################################################
 # R SCRIPT FOR MORPHOMETRIC ANALYSES (having snakes in mind...)
 # version 2022.06.08
-# Designed to analyze data for Azevedo et al., 2022
+# Designed to analyze data for Azevedo et al. - Integrated evidence sheds light on the taxonomy of the widespread Tantilla melanocephala species
+complex (Serpentes: Colubridae) and indicates the existence of a new species from southern South America
+
 ##########################################################################################
 # Felipe G. Grazziotin - fgrazziotin@gmail.com
 ##########################################################################################
@@ -187,13 +189,13 @@ for(i in seq(x_cont[1,])){
 #######################################
 # calculate ratios between cont variables
 
-# how rabudo
+# Tail ratio
 rat_BLTL<-bodylength/x_cont$cont_TL
 
-# how cabeça larga
+# Head width ratio
 rat_HLWH<-x_cont$cont_HL/x_cont$cont_HW
 
-# how cabeçudo
+# Head length ratio
 rat_BLHL<-bodylength/x_cont$cont_HL
 
 x_ratio<-cbind(rat_BLTL,rat_HLWH,rat_BLHL)
@@ -530,8 +532,8 @@ for(k in seq(Hlabel)){
 zero_var<-list()
 x_all_cln_noOut_noZ<-list()
 for(k in seq(Hlabel)){
-	zero_var[[Hlabel[k]]]<-which(apply(na.omit(x_all_cln_noOut[[k]]), 2, var) == 0)
-	x_all_cln_noOut_noZ[[Hlabel[k]]]<-x_all_cln_noOut[[k]][-as.numeric(which(apply(na.omit(x_all_cln_noOut[[k]]), 2, var) == 0))]
+	zero_var[[Hlabel[k]]]<-which(apply(x_all_cln_noOut[[k]], 2, function(x) var(x, na.rm = TRUE)) == 0)
+	x_all_cln_noOut_noZ[[Hlabel[k]]]<-x_all_cln_noOut[[k]][,!seq(x_all_cln_noOut[[k]][1,])%in%zero_var[[Hlabel[k]]]]
 }
 
 # write list of zero-variance variables
@@ -539,11 +541,10 @@ sink("./01_tables/Removed_Zero-Variance.txt")
 	print(zero_var)
 sink()
 
-zero_var<-list()
-x_multi_cln_noOut_noZ<-list()
+#######################################
 for(k in seq(Hlabel)){
-	zero_var[[Hlabel[k]]]<-which(apply(na.omit(x_multi_cln_noOut[[k]]), 2, var) == 0)
-	x_multi_cln_noOut_noZ[[Hlabel[k]]]<-x_multi_cln_noOut[[k]][-as.numeric(which(apply(na.omit(x_multi_cln_noOut[[k]]), 2, var) == 0))]
+	zero_var[[Hlabel[k]]]<-which(apply(x_multi_cln_noOut[[k]], 2, function(x) var(x, na.rm = TRUE)) == 0)
+	x_multi_cln_noOut_noZ[[Hlabel[k]]]<-x_multi_cln_noOut[[k]][,!seq(x_multi_cln_noOut[[k]][1,])%in%zero_var[[Hlabel[k]]]]
 }
 
 #######################################
