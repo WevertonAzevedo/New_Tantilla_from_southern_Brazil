@@ -1,6 +1,7 @@
 ##########################################################################################
 # R script used to plot calibrated trees (BEAST).
-# Wrote to generate figures in Azevedo et al. (2022) - "New species of Tantilla for southern Brazil".
+# Wrote to generate figures in Azevedo et al. - Integrated evidence sheds light on the taxonomy of the widespread Tantilla melanocephala species
+complex (Serpentes: Colubridae) and indicates the existence of a new species from southern South America
 # Felipe G. Grazziotin - fgrazziotin@gmail.com
 # &
 # Weverton S. Azevedo - weverton.azevedo@hotmail.com
